@@ -1,70 +1,43 @@
 import Contact from '../models/Contact.js';
 
-export async function getContactById(contactId) {
-  try {
-    const contact = await Contact.findById(contactId);
-    if (!contact) {
-      return {
-        status: 404,
-        message: 'Contact not found',
-      };
-    }
-    return {
-      status: 200,
-      message: `Successfully found contact with id ${contactId}!`,
-      data: contact,
-    };
-  } catch (error) {
-    console.error('Error fetching contacts:', error);
-    throw new Error('Error fetching contact');
-  }
-}
+export const getContactById = async (contactId) => {
+  const contact = await Contact.findById(contactId);
+  return contact;
+};
 
-export async function getAllContacts() {
-  try {
-    const contacts = await Contact.find();
-    return {
-      status: 200,
-      message: 'Successfully found contacts!',
-      data: contacts,
-    };
-  } catch (error) {
-    console.error('Error fetching contacts:', error);
-    throw new Error('Error fetching contacts');
-  }
-}
+export const getAllContacts = async () => {
+  const contacts = await Contact.find();
+  return contacts;
+};
 
-export async function createContact(contactData) {
-  try {
-    const contact = new Contact(contactData);
-    await contact.save();
-    return contact;
-  } catch (error) {
-    console.error('Error creating contact:', error);
-    throw new Error('Error creating contact');
-  }
-}
+export const createContact = async (payload) => {
+  const contact = await Contact.create(payload);
+  return contact;
+};
 
-export async function updateContactById(contactId, updates) {
-  try {
-    const updatedContact = await Contact.findByIdAndUpdate(contactId, updates, {
+export const updateContactById = async (contactId, payload, options = {}) => {
+  const rawResult = await Contact.findOneAndUpdate(
+    { _id: contactId },
+    payload,
+    {
       new: true,
-      runValidators: true,
-    });
+      includeResultMetadata: true,
+      ...options,
+    },
+  );
 
-    return updatedContact;
-  } catch (error) {
-    console.error('Error updating contact:', error);
-    throw new Error('Error updating contact');
-  }
-}
+  if (!rawResult || !rawResult.value) return null;
 
-export async function deleteContactById(contactId) {
-  try {
-    const deletedContact = await Contact.findByIdAndDelete(contactId);
-    return deletedContact;
-  } catch (error) {
-    console.error('Error deleting contact:', error);
-    throw new Error('Error deleting contact');
-  }
-}
+  return {
+    contact: rawResult.value,
+    isNew: Boolean(rawResult?.lastErrorObject?.upserted),
+  };
+};
+
+export const deleteContactById = async (contactId) => {
+  const contact = await Contact.findOneAndDelete({
+    _id: contactId,
+  });
+
+  return contact;
+};
