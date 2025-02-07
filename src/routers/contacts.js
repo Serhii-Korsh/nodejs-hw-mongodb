@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   getContactsHandler,
   getContactByIdHandler,
@@ -13,8 +13,11 @@ import {
   updateContactsSchema,
 } from '../validation/contacts.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
-const router = express.Router();
+const router = Router();
+
+router.use(authenticate);
 
 router.get('/', ctrlWrapper(getContactsHandler));
 router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdHandler));
