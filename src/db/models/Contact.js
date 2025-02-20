@@ -27,6 +27,11 @@ const contactSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users',
     },
+    photo: {
+      type: String,
+      default: null,
+      required: false,
+    } /* Реалізація завантаження */,
   },
   {
     timestamps: true,

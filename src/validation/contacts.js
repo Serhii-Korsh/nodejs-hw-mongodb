@@ -12,13 +12,13 @@ export const createContactsSchema = Joi.object({
   email: Joi.string().min(3).max(20).required(),
   isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
-  userId: Joi.string()
-  .custom((value, helper) => {
+  userId: Joi.string().custom((value, helper) => {
     if (value && !isValidObjectId(value)) {
       return helper.message('ID should be a valid mongo id');
     }
     return true;
   }),
+  photo: Joi.string().allow(null, ''), // Добавлена валидация для обновления фото
 });
 
 export const updateContactsSchema = Joi.object({
@@ -38,4 +38,5 @@ export const updateContactsSchema = Joi.object({
     }
     return true;
   }),
+  photo: Joi.string().allow(null, ''), // Добавлена валидация для обновления фото
 });

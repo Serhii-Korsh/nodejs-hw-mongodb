@@ -7,6 +7,8 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import cookieParser from 'cookie-parser';
 
+import { UPLOAD_DIR } from './constants/index.js'; /* Реалізація завантаження */
+
 dotenv.config();
 
 const logger = pino();
@@ -27,6 +29,8 @@ export function setupServer() {
 
   app.use(notFoundHandler);
   app.use(errorHandler);
+
+  app.use('/uploads', express.static(UPLOAD_DIR)); /* Реалізація завантаження */
 
   const PORT = Number(process.env.PORT) || 3000;
 
