@@ -9,7 +9,12 @@ import {
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
-import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js'; /* Реалізація завантаження */
+// import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+
+// import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+// import { getEnvVar } from '../utils/getEnvVar.js';
+
+import { uploadFile } from '../utils/uploadFile.js';
 
 export const getContactsHandler = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -50,7 +55,16 @@ export const getContactByIdHandler = async (req, res, next) => {
 
 export const createContactHandler = async (req, res) => {
   const userId = req.user._id;
-  const response = await createContact({ ...req.body, userId });
+
+  const photo = req.file;
+
+  const photoUrl = await uploadFile(photo);
+
+  const response = await createContact({
+    ...req.body,
+    userId,
+    photo: photoUrl,
+  });
 
   res.status(201).json({
     status: 201,
@@ -59,20 +73,15 @@ export const createContactHandler = async (req, res) => {
   });
 };
 
-/* Реалізація завантаження */
 export const updateContactHandler = async (req, res, next) => {
   const { contactId } = req.params;
+  const userId = req.user._id;
   const photo = req.file;
+  const photoUrl = await uploadFile(photo);
 
-  let photoUrl;
-
-  if (photo) {
-    photoUrl = await saveFileToUploadDir(photo);
-  }
-
-  const result = await updateContactById(contactId, {
+  const result = await updateContactById(contactId, userId, {
     ...req.body,
-    photo: photoUrl,
+    ...(photoUrl && { photo: photoUrl }),
   });
 
   if (!result) {
@@ -86,25 +95,6 @@ export const updateContactHandler = async (req, res, next) => {
     data: result.contact,
   });
 };
-
-// export const updateContactHandler = async (req, res, next) => {
-//   const { contactId } = req.params;
-//   const updates = req.body;
-//   const userId = req.user._id;
-
-//   const updatedContact = await updateContactById(contactId, userId, updates);
-
-//   if (!updatedContact) {
-//     next(createHttpError(404, 'Contact not found'));
-//     return;
-//   }
-
-//   res.status(200).json({
-//     status: 200,
-//     message: 'Successfully updated contact!',
-//     data: updatedContact,
-//   });
-// };
 
 export const deleteContactHandler = async (req, res, next) => {
   const { contactId } = req.params;

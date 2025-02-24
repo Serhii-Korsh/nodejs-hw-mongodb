@@ -12,10 +12,3 @@ const bootstrap = async () => {
 };
 
 void bootstrap();
-
-// async function startApp() {
-//   await initMongoConnection();
-//   setupServer();
-// }
-
-// startApp();
