@@ -92,7 +92,7 @@ export const updateContactHandler = async (req, res, next) => {
   res.json({
     status: 200,
     message: `Successfully updated contact!`,
-    data: result.contact,
+    data: result,
   });
 };
 
