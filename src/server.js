@@ -9,6 +9,8 @@ import cookieParser from 'cookie-parser';
 
 import { UPLOAD_DIR } from './constants/index.js'; /* Реалізація завантаження */
 
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
+
 dotenv.config();
 
 const logger = pino();
@@ -24,6 +26,9 @@ export function setupServer() {
     logger.info(`${req.method} ${req.url}`);
     next();
   });
+
+  app.use('/api-docs', swaggerDocs());
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use(router);
 

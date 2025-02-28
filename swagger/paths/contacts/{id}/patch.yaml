@@ -1,0 +1,101 @@
+tags:
+  - Contacts
+summary: Update a contact
+operationId: updateContact
+description: Updates contact details by `contactId` if it belongs to an authenticated user.
+security:
+  - BearerAuth: []
+parameters:
+  - name: contactId
+    in: path
+    required: true
+    schema:
+      type: string
+    description: Unique contact ID
+    example: '65f1a0e59b8cde1234567890'
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Contact name
+            example: 'John Doe'
+          phoneNumber:
+            type: string
+            description: Contact phone number
+            example: '+1234567890'
+          email:
+            type: string
+            description: Contact email
+            example: 'john@example.com'
+          isFavourite:
+            type: boolean
+            description: Favorite contact flag
+            example: true
+          contactType:
+            type: string
+            enum: [work, home, personal]
+            description: Contact type
+            example: 'work'
+          photo:
+            type: string
+            format: binary
+            description: Contact photo (file upload)
+responses:
+  '200':
+    description: Contact updated successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+          message:
+            type: string
+            example: 'Successfully updated contact!'
+          data:
+            type: object
+            properties:
+              _id:
+                description: 'Contacts id'
+                type: string
+                example: '65f1a0e59b8cde1234567890'
+              name:
+                description: 'Contacts name'
+                type: string
+                example: 'John Doe'
+              phoneNumber:
+                description: 'Contact phone number'
+                type: string
+                example: '+1234567890'
+              email:
+                description: 'Contact email'
+                type: string
+                example: 'john@example.com'
+              isFavourite:
+                description: 'Selection of frequently used contacts'
+                type: boolean
+                example: true
+              contactType:
+                description: 'Selection of contacts by category'
+                type: string
+                enum: [work, home, personal]
+                example: 'work'
+              userId:
+                description: 'Contacts users'
+                type: string
+                example: '65f1a0e59b8cde0987654321'
+              photo:
+                description: 'Link to contact photo'
+                type: string
+                example: 'https://example.com/photo.jpg'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'

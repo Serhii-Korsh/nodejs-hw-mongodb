@@ -1,0 +1,71 @@
+tags:
+  - Contacts
+summary: Create a new contact
+operationId: createContact
+description: 'Creates a new contact for an authenticated user'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - _id
+          - name
+          - phoneNumber
+          - contactType
+        properties:
+          name:
+            description: 'Contact name'
+            type: string
+            example: 'John Doe'
+          phoneNumber:
+            description: 'Contact phone number'
+            type: string
+            example: '+38232323112361'
+          email:
+            description: 'Contact email'
+            type: string
+            example: 'rn492@gmial.com'
+          isFavourite:
+            description: 'Selection of frequently used contacts'
+            type: boolean
+            example: false
+          contactType:
+            description: 'Selection of contacts by category'
+            type: string
+            enum: ['work', 'home', 'personal']
+            example: 'personal'
+          userId:
+            description: 'Contacts users'
+            type: string
+            example: 65e4decdd286b30065d54af9
+          photo:
+            description: 'Link to contact photo'
+            type: string
+            format: binary
+            example: https://res.cloudinary.com/darcvs8oc/image/upload/v1740489563/g9dnpuphfi2ebsz.jpg
+responses:
+  '201':
+    description: Creates a student
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a student!
+            data:
+              type: object
+              $ref: ../../components/schemas/contact.yaml
+  '401':
+    $ref: '../../components/responses/401.yaml'

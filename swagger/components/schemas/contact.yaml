@@ -1,0 +1,41 @@
+type: object
+required:
+  - _id
+  - name
+  - phoneNumber
+  - contactType
+
+properties:
+  _id:
+    description: 'Contacts id'
+    type: string
+    example: 65e4decdd286b30065d54af9
+  name:
+    description: 'Contacts name'
+    type: string
+    example: 'John Doe'
+  phoneNumber:
+    description: 'Contact phone number'
+    type: string
+    example: '+38232323112361'
+  email:
+    description: 'Contact email'
+    type: string
+    example: 'rn492@gmial.com'
+  isFavourite:
+    description: 'Selection of frequently used contacts'
+    type: boolean
+    example: false
+  contactType:
+    description: 'Selection of contacts by category'
+    type: string
+    enum: ['work', 'home', 'personal']
+    example: 'personal'
+  userId:
+    description: 'Contacts users'
+    type: string
+    example: 65e4decdd286b30065d54af9
+  photo:
+    description: 'Link to contact photo'
+    type: string
+    example: https://res.cloudinary.com/darcvs8oc/image/upload/v1740489563/g9dnpuphfi2ebsz.jpg
