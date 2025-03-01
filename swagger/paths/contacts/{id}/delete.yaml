@@ -6,7 +6,7 @@ description: Removes a contact by its `contactId` if it belongs to an authentica
 security:
   - BearerAuth: []
 parameters:
-  - name: contactId
+  - name: id
     in: path
     required: true
     schema:
