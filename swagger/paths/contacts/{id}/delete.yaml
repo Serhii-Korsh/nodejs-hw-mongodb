@@ -4,7 +4,7 @@ summary: Delete a contact
 operationId: deleteContact
 description: Removes a contact by its `contactId` if it belongs to an authenticated user.
 security:
-- BearerAuth: []
+  - BearerAuth: []
 parameters:
   - name: contactId
     in: path
@@ -17,6 +17,6 @@ responses:
   '204':
     description: Contact deleted successfully (no content in response)
   '404':
-    $ref: '../../../components/responses/404.yaml
+    $ref: '../../../components/responses/404.yaml'
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: '../../../components/responses/401.yaml'
