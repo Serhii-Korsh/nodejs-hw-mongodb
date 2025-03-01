@@ -190,7 +190,6 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "_id",
                   "name",
                   "phoneNumber",
                   "contactType"
@@ -226,16 +225,10 @@
                     ],
                     "example": "personal"
                   },
-                  "userId": {
-                    "description": "Contacts users",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
-                  },
                   "photo": {
                     "description": "Link to contact photo",
                     "type": "string",
-                    "format": "binary",
-                    "example": "https://res.cloudinary.com/darcvs8oc/image/upload/v1740489563/g9dnpuphfi2ebsz.jpg"
+                    "format": "binary"
                   }
                 }
               }
