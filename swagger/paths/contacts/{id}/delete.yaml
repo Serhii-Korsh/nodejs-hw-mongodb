@@ -4,7 +4,7 @@ summary: Delete a contact
 operationId: deleteContact
 description: Removes a contact by its `contactId` if it belongs to an authenticated user.
 security:
-  - BearerAuth: []
+  - bearerAuth: []
 parameters:
   - name: id
     in: path

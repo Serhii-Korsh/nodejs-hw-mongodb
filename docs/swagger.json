@@ -346,7 +346,7 @@
         "description": "Removes a contact by its `contactId` if it belongs to an authenticated user.",
         "security": [
           {
-            "BearerAuth": []
+            "bearerAuth": []
           }
         ],
         "parameters": [
@@ -382,7 +382,7 @@
         "description": "Updates contact details by `contactId` if it belongs to an authenticated user.",
         "security": [
           {
-            "BearerAuth": []
+            "bearerAuth": []
           }
         ],
         "parameters": [
@@ -455,59 +455,59 @@
                     "status": {
                       "type": "integer",
                       "example": 200
-                    }
-                  },
-                  "message": {
-                    "type": "string",
-                    "example": "Successfully updated contact!"
-                  },
-                  "data": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "description": "Contacts id",
-                        "type": "string",
-                        "example": "65f1a0e59b8cde1234567890"
-                      },
-                      "name": {
-                        "description": "Contacts name",
-                        "type": "string",
-                        "example": "John Doe"
-                      },
-                      "phoneNumber": {
-                        "description": "Contact phone number",
-                        "type": "string",
-                        "example": "+1234567890"
-                      },
-                      "email": {
-                        "description": "Contact email",
-                        "type": "string",
-                        "example": "john@example.com"
-                      },
-                      "isFavourite": {
-                        "description": "Selection of frequently used contacts",
-                        "type": "boolean",
-                        "example": true
-                      },
-                      "contactType": {
-                        "description": "Selection of contacts by category",
-                        "type": "string",
-                        "enum": [
-                          "work",
-                          "home",
-                          "personal"
-                        ],
-                        "example": "work"
-                      },
-                      "userId": {
-                        "description": "Contacts users",
-                        "type": "string",
-                        "example": "65f1a0e59b8cde0987654321"
-                      },
-                      "photo": {
-                        "description": "Link to contact photo",
-                        "type": "string",
-                        "example": "https://example.com/photo.jpg"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully updated contact!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "description": "Contacts id",
+                          "type": "string",
+                          "example": "65f1a0e59b8cde1234567890"
+                        },
+                        "name": {
+                          "description": "Contacts name",
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "phoneNumber": {
+                          "description": "Contact phone number",
+                          "type": "string",
+                          "example": "+1234567890"
+                        },
+                        "email": {
+                          "description": "Contact email",
+                          "type": "string",
+                          "example": "john@example.com"
+                        },
+                        "isFavourite": {
+                          "description": "Selection of frequently used contacts",
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "contactType": {
+                          "description": "Selection of contacts by category",
+                          "type": "string",
+                          "enum": [
+                            "work",
+                            "home",
+                            "personal"
+                          ],
+                          "example": "work"
+                        },
+                        "userId": {
+                          "description": "Contacts users",
+                          "type": "string",
+                          "example": "65f1a0e59b8cde0987654321"
+                        },
+                        "photo": {
+                          "description": "Link to contact photo",
+                          "type": "string",
+                          "example": "https://example.com/photo.jpg"
+                        }
                       }
                     }
                   }
